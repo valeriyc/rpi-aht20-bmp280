@@ -1,16 +1,15 @@
-import smbus2
-import bme280
+import time
+
+from smbus2 import SMBus
+from bmp280 import BMP280
+
+# pip install bmp280
 
 port = 1
 address = 0x77
-bus = smbus2.SMBus(port)
 
-calibration_params = bme280.load_calibration_params(bus, address)
-
-# the sample method will take a single reading and return a
-# compensated_reading object
-data = bme280.sample(bus, address, calibration_params)
-
+bus = SMBus(port)
+bmp280 = BMP280(i2c_addr=address,i2c_dev=bus)
 
 def print_gauge(name, value, text):
     print(f'# HELP {name} {text}')
@@ -19,7 +18,7 @@ def print_gauge(name, value, text):
 
 
 # the compensated_reading class has the following attributes
-print_gauge("temperature", data.temperature, "Temperature in celsius")
-print_gauge("pressure", data.pressure, "Pressure")
-print_gauge("humidity", data.humidity, "Humidity percentage")
+print_gauge("temperature", bmp280.get_temperature(), "Temperature in celsius")
+print_gauge("pressure", bmp280.get_pressure(), "Pressure")
+print_gauge("humidity", "N/A", "Humidity percentage")
 
