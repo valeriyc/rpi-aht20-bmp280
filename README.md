@@ -14,9 +14,10 @@ Raspberry pi with aht20+bmp280 sensor and data output in prometheus with visuali
 5. Test python script: 
 ```
 apt-get update && apt-get -y install python3 python3-pip
-python3 -m venv .venv`
+python3 -m venv .venv
 source .venv/bin/activate
-pip3 install smbus2 RPi.bme280
+pip3 install smbus2 bmp280
+pip3 install Adafruit_Blinka adafruit-circuitpython-ahtx0
 python3 read-temp.py
 ```
 
