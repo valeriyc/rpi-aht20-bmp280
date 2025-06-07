@@ -1,11 +1,15 @@
 
 Raspberry PI with AHT20+BMP280 sensor and data output in Prometheus with visualization by Grafana.
 
+Tested on Raspberry Pi 4B and 5.
+
 ## Installation
 
-1. Setup OS on Raspberry PI 5 SD card using PI Imager - choose Other - Raspberry PI OS Lite (64 bit).
+1. Setup OS on Raspberry PI SD card using PI Imager - choose Other - Raspberry PI OS Lite (64 bit).
 
-2. Connect AHT20+BMP280 sensor to Raspberry PI:
+2. `sudo raspi-config` -> Interfacing Options -> I2C - > Enable
+
+3. Connect AHT20+BMP280 sensor to Raspberry PI:
 
 |Pin #|Pin Name|Connection|
 |-----|--------|----------|
@@ -14,7 +18,7 @@ Raspberry PI with AHT20+BMP280 sensor and data output in Prometheus with visuali
 |5|GPIO3|SCL|
 |9|GND|GND|
 
-3. Connect to RPI using SSH, setup docker-compose:
+4. Connect to RPI using SSH, setup docker-compose:
 ```
 sudo apt update & apt upgrade
 sudo apt install docker-compose
@@ -22,13 +26,13 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
 ```
-4. Clone this repository, build & run docker containers:
+5. Clone this repository, build & run docker containers:
 ```
 cd rpi-aht20-bmp280
 docker compose up -d
 docker compose logs -f
 ```
-5. Configure Grafana.
+6. Configure Grafana.
     * Login to http://your_host_name.local:3000/ (change default creds admin/admin)
     * Open 'Connections' - 'Data Sources' - add new Data Source:
         * name: Prometheus

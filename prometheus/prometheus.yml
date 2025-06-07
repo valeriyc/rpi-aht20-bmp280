@@ -1,4 +1,16 @@
 scrape_configs:
+- job_name: 'node-exporter'
+  static_configs:
+    - targets: ['192.168.0.52:9100'] ## IP Address of the localhost
+#  params:
+#    collect[]:
+#      - cpu    
+#      - meminfo   
+#      - filesystem
+ # metric_relabel_configs:
+ #   - source_labels: [__name__]
+ #     regex: node_cpu_.*
+ #     action: keep
 - job_name: temperature 
   fallback_scrape_protocol: "PrometheusText0.0.4"
   scrape_interval: 30s
@@ -6,4 +18,3 @@ scrape_configs:
   static_configs:
   - targets:
     - scaap:3030
-
